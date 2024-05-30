@@ -1,24 +1,23 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LandingPage from './Pages/LandingPage/LandingPage';
+import DashBoard from './Pages/DashBoard/DashBoard';
+import SignIn from './Pages/AuthPages/SignIn/SignIn';
 
 function App() {
+
+  const [isUserLoggedIn, setUserLogIn] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={isUserLoggedIn ? <DashBoard /> : <LandingPage logInStatus={isUserLoggedIn} setLogIn={setUserLogIn} />} />
+        <Route path="/signIn" element={isUserLoggedIn ? <Navigate to="/dashBoard" replace /> : <SignIn />} />
+        {/* <Route element={<Layout />}>
+        </Route> */}
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,0 +1,125 @@
+
+.landingPageContainer {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.blobContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    display: flex;
+    gap: 10rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    filter: blur(200px);
+    animation: rotate 20s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.blob {
+    width: 40rem;
+    height: 40rem;
+}
+
+.contentContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    padding: 20px;
+  }
+  
+  .headerContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .logoContainer {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center; 
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+
+@media (prefers-color-scheme: no-preference) {
+    .darkLogo {
+        display: none;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .darkLogo {
+        display: none;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .lightLogo {
+        display: none;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.mainHeaderText {
+    font-size: clamp(1rem, 5vw, 4rem);
+}
+
+.typeWriterEffectContainer {
+    font-size: clamp(0.5rem, 2vw, 2rem);
+    font-weight: bold;
+}
+
+.getStarted {
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: clamp(1.5rem, 2vw, 4rem);
+    color: #ffffff;
+    font-weight: bold;
+    margin-top: 40px;
+}
+
+.getStarted:hover {
+    cursor: pointer;
+    background-color: rgba(164, 69, 237, 0.6);
+}
+
+@media screen and (max-width: 900px) {
+    .logotitle {
+        display: none;
+    }
+}

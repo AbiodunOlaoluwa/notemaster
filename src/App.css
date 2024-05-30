@@ -1,38 +1,106 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
+
+@font-face {
+  font-family: "Baskerville";
+  src: url("https://fonts.google.com/selection?query=baskerville");
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Baskerville";
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+*::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+:root {
+  --bg-primary-light: #ffffff;
+  --bg-primary-dark: #050505;
+  --bg-secondary-light: #f4f4f4;
+  --bg-secondary-dark: #1f1f1f;
+
+  --text-primary-light: #2d2d2d;
+  --text-primary-dark: #ffffff;
+
+  --text-secondary-light: #757575;
+  --text-secondary-dark: #cccccc;
+
+  --purple: #a445ed;
+  --red: #ff5252;
+
+  --font: "Baskerville";
+}
+
+/* Default color scheme */
+body {
+  background-color: var(--bg-primary-light);
+  color: var(--text-primary-light);
+  font-family: var(--font);
+}
+
+@media (prefers-color-scheme: no-preference) {
+  body {
+    background-color: var(--bg-primary-light);
+    color: var(--text-primary-light);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Light color scheme */
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--bg-primary-light);
+    color: var(--text-primary-light);
   }
-  to {
-    transform: rotate(360deg);
+
+  .secondary-bg {
+    background-color: var(--bg-secondary-light);
+  }
+
+  .purple-bg {
+    background-color: var(--purple);
+  }
+
+  .secondary-text {
+    color: var(--text-secondary-light);
+  }
+
+  .highlight-purple {
+    color: var(--purple);
+  }
+
+  .highlight-red {
+    color: var(--red);
+  }
+}
+
+/* Dark color scheme */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--bg-primary-dark);
+    color: var(--text-primary-dark);
+  }
+
+  .secondary-bg {
+    background-color: var(--bg-secondary-dark);
+  }
+
+  .purple-bg {
+    background-color: var(--purple);
+  }
+
+  .secondary-text {
+    color: var(--text-secondary-dark);
+  }
+
+  .highlight-purple {
+    color: var(--purple);
+  }
+
+  .highlight-red {
+    color: var(--red);
   }
 }
