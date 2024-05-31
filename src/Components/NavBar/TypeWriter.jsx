@@ -9,7 +9,7 @@ const TypeWriter = () => {
       }}
       onInit={(typewriter) => {
         typewriter
-          .typeString(`Analyze your writing habits... `)
+          .typeString(`Analyze your writing habits...`)
           .pauseFor(1100)
           .deleteAll()
           .typeString("Track your progress...")

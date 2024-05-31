@@ -1,0 +1,11 @@
+.nameContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.username-email {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}

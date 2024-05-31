@@ -1,0 +1,132 @@
+
+@media (prefers-color-scheme: dark) {
+    .signInCard {
+        background-color: rgb(0, 0, 0);
+        backdrop-filter: blur(100px);
+    }
+}
+
+.signInPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+}
+
+.signInCardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.authLogo {
+    width: 32px;
+    height: 32px;
+}
+
+.authLogoTitle {
+    font-size: 2rem;
+}
+
+.signInCard {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.3rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 30vw;
+    max-width: 600px;
+    min-width: 340px;
+}
+
+.signInHeader {
+    display: flex;
+    flex-direction: column;
+}
+
+.headerText {
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 150%;
+}
+
+.descHeaderText {
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.inputField {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-size: 0.8rem;
+}
+
+input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.inputFieldContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    padding: 1rem;
+    border: solid 1px black;
+    border-radius: 10px;
+}
+
+.inputFieldContainer:focus-within {
+    border: solid 1px #a445ed;
+    box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
+}
+
+.signInButton {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #a445ed;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.signInButton:hover {
+    cursor: pointer;
+    opacity: 0.95;
+}
+
+.signInButton:active {
+    opacity: 0.7;
+}
+
+.redirect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    margin: 1rem;
+}
