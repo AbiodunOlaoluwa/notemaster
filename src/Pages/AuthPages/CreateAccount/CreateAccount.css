@@ -9,3 +9,7 @@
     flex-direction: row;
     gap: 1rem;
 }
+
+.typeChange:hover {
+    cursor: pointer;
+}

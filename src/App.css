@@ -57,6 +57,12 @@ a {
   padding: 0 0.5rem;
 }
 
+.success {
+  color: green;
+  font-size: 1rem;
+  padding: 0 0.5;
+}
+
 .hidden {
   display: none;
 }

@@ -5,6 +5,7 @@ import LandingPage from './Pages/LandingPage/LandingPage';
 import DashBoard from './Pages/DashBoard/DashBoard';
 import SignIn from './Pages/AuthPages/SignIn/SignIn';
 import CreateAccount from './Pages/AuthPages/CreateAccount/CreateAccount';
+import Layout from './Layout';
 
 function App() {
 
@@ -16,8 +17,9 @@ function App() {
         <Route path="/" element={isUserLoggedIn ? <DashBoard /> : <LandingPage logInStatus={isUserLoggedIn} setLogIn={setUserLogIn} />} />
         <Route path="/login" element={isUserLoggedIn ? <Navigate to="/dashBoard" replace /> : <SignIn />} />
         <Route path="createAccount" element={isUserLoggedIn ? <Navigate to="/dashBoard" replace /> : <CreateAccount />} />
-        {/* <Route element={<Layout />}>
-        </Route> */}
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<DashBoard />} />
+        </Route>
       </Routes>
     </Router>
   );

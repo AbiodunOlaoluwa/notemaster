@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import blob1 from "../blob1.svg";
 import blob2 from "../blob2.svg";
 import lightLogo from "../light_theme_transparent.png";
@@ -14,6 +15,11 @@ const CreateAccount = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [type, setType] = useState("password");
+
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({
     email: '',
@@ -24,6 +30,13 @@ const CreateAccount = () => {
   });
 
   const newErrors = {};
+
+  const handleTypeClick = () => {
+    if (type === "password") {
+      setType("text")
+    } 
+    else setType("password");
+  }
 
   const validateForm = () => {
     if (!email) newErrors.email = 'This field is required';
@@ -40,23 +53,34 @@ const CreateAccount = () => {
     if (validateForm() && validatePassword(password)) {
       setLoading(true);
 
-      // Simulate a network request
       try {
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-        console.log("Account Created");
-        // Handle successful account creation logic here
-      } catch (error) {
-        console.error("Account creation failed", error);
-      } finally {
+        const response = await axios.post("http://localhost:3001/api/createAccount", {
+          email,
+          firstName,
+          lastName,
+          userName,
+          password
+        });
         setLoading(false);
+        setSuccess(response.data.message);
+        setError("");
+        setTimeout(() => navigate('/login', {replace: true}), 2500)
+      } catch (error) {
+        setLoading(false);
+        if (error.response && error.response.status === 409) {
+          setError("An account with this email or username already exists.")
+        } else {
+          console.error("Error creating account:", error);
+          setError("Failed to create account. Please try again.");
+          setSuccess("");
+        }
       }
-    } else {
-      console.log("Form validation failed");
+
     }
   };
 
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
     if (!passwordRegex.test(password)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -160,17 +184,22 @@ const CreateAccount = () => {
               <div className={`inputFieldContainer ${errors.password ? "error" : ""}`}>
                 <input
                   id="passwordInput"
-                  type="password"
+                  type={type === "password" ? "password" : "text"}
                   className="passwordInput"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onClick={() => setErrors(newErrors)}
                 />
+                <div className="typeChange" onClick={handleTypeClick}>
+                  <p>CT</p>
+                </div>
               </div>
               {errors.password && <i><p className="errorFont">{errors.password}</p></i>}
             </div>
           </div>
+          {error && <p className="errorFont">{error}</p>}
+          {success && <p className="success">{success}</p>}
           <div className="buttonContainer">
             <button type="submit" className='signInButton' onClick={handleCreateAccount} disabled={loading}>
               {loading ? <ComponentLoadingSpinner /> : "Create Account"}
