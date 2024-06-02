@@ -19,6 +19,10 @@ const TypeWriter = () => {
           .pauseFor(1100)
           .deleteAll()
           .typeString("Enhance your writing skills...")
+          .pauseFor(1100)
+          .deleteAll()
+          .typeString("For Writers.")
+          .pauseFor(1000)
           .start();
       }}
     />

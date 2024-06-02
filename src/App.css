@@ -46,6 +46,21 @@ a {
   text-decoration: none;
 }
 
+.inputFieldContainer.error {
+  border-color: var(--red);
+  border-width: 1px;
+}
+
+.errorFont {
+  color: var(--red);
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
 @media (prefers-color-scheme: no-preference) {
   body {
     background-color: var(--bg-primary-light);

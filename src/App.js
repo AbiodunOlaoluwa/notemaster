@@ -14,7 +14,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={isUserLoggedIn ? <DashBoard /> : <LandingPage logInStatus={isUserLoggedIn} setLogIn={setUserLogIn} />} />
-        <Route path="/signIn" element={isUserLoggedIn ? <Navigate to="/dashBoard" replace /> : <SignIn />} />
+        <Route path="/login" element={isUserLoggedIn ? <Navigate to="/dashBoard" replace /> : <SignIn />} />
         <Route path="createAccount" element={isUserLoggedIn ? <Navigate to="/dashBoard" replace /> : <CreateAccount />} />
         {/* <Route element={<Layout />}>
         </Route> */}

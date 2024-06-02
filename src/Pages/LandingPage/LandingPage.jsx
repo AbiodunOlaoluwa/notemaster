@@ -5,7 +5,7 @@ import blob1 from "./blob1.svg";
 import blob2 from "./blob2.svg";
 import lightLogo from "./Assets/light_theme_transparent.png";
 import darkLogo from "./Assets/logo_dark_transparent.png";
-import TypeWriter from '../../Components/NavBar/TypeWriter';
+import TypeWriter from '../../Components/TypeWriter';
 import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
@@ -13,7 +13,7 @@ const LandingPage = () => {
 
     const handleButtonClick = (event) => {
         event.preventDefault();
-        navigate("/signIn");
+        navigate("/login");
     }
 
     return (
@@ -63,7 +63,7 @@ const LandingPage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
                         >
-                            Smart <span className="highlight-purple">AI Assisted</span> Note Taking.
+                            Smart <span className="highlight-purple">AI Assisted</span> Text Editing.
                         </motion.h1>
                     </div>
                     <div className="typeWriterEffectContainer">
