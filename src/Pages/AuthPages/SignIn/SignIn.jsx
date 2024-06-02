@@ -5,10 +5,15 @@ import blob1 from "../blob1.svg";
 import blob2 from "../blob2.svg";
 import lightLogo from "../light_theme_transparent.png";
 import darkLogo from "../logo_dark_transparent.png";
+import lightModeOpenEye from "../openEye_lightMode.png";
+import lightModeClosedEye from "../closedEye_lightMode.png";
+import darkModeOpenEye from "../openEye_darkMode.png";
+import darkModeClosedEye from "../closedEye_darkMode.png";
 import "./SignIn.css";
 import ComponentLoadingSpinner from '../../../Components/ComponentLoadingSpinner/ComponentLoadingSpinner';
 
 const SignIn = () => {
+    axios.defaults.withCredentials = true; //for session cookie handling
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -75,10 +80,10 @@ const SignIn = () => {
                 </div>
                 <div className="signInCardContainer">
                     <div className="logoContainer">
-                        <div className="lightLogo">
+                        <div className="light">
                             <img src={lightLogo} alt="logo" className='authLogo' />
                         </div>
-                        <div className="darkLogo">
+                        <div className="dark">
                             <img src={darkLogo} alt="logo" className='authLogo' />
                         </div>
                         <p className="authLogoTitle">NoteMaster</p>
@@ -101,7 +106,25 @@ const SignIn = () => {
                                 <div className={`inputFieldContainer ${errors.password ? "error" : ""}`}>
                                     <input id="passwordInput" type={type === "password" ? "password" : "text"} className="passwordInput" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} onClick={() => setErrors(newErrors)} />
                                     <div className="typeChange" onClick={handleTypeClick}>
-                                        <p>CT</p>
+                                        {
+                                            type === "password" ? 
+                                            <div className="eyeContainer">
+                                                <div className="light">
+                                                    <img src={lightModeOpenEye} alt="CT" />
+                                                </div>
+                                                <div className="dark">
+                                                    <img src={darkModeOpenEye} alt="CT" />
+                                                </div>
+                                            </div> :
+                                            <div className="eyeContainer">
+                                                <div className="light">
+                                                    <img src={lightModeClosedEye} alt="CT" />
+                                                </div>
+                                                <div className="dark">
+                                                    <img src={darkModeClosedEye} alt="CT" />
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                                 {errors.password && <i><p className="errorFont">{errors.password}</p></i>}

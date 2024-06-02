@@ -5,6 +5,10 @@ import blob1 from "../blob1.svg";
 import blob2 from "../blob2.svg";
 import lightLogo from "../light_theme_transparent.png";
 import darkLogo from "../logo_dark_transparent.png";
+import lightModeOpenEye from "../openEye_lightMode.png";
+import lightModeClosedEye from "../closedEye_lightMode.png";
+import darkModeOpenEye from "../openEye_darkMode.png";
+import darkModeClosedEye from "../closedEye_darkMode.png";
 import "./CreateAccount.css";
 import ComponentLoadingSpinner from '../../../Components/ComponentLoadingSpinner/ComponentLoadingSpinner';
 
@@ -34,7 +38,7 @@ const CreateAccount = () => {
   const handleTypeClick = () => {
     if (type === "password") {
       setType("text")
-    } 
+    }
     else setType("password");
   }
 
@@ -64,7 +68,7 @@ const CreateAccount = () => {
         setLoading(false);
         setSuccess(response.data.message);
         setError("");
-        setTimeout(() => navigate('/login', {replace: true}), 2500)
+        setTimeout(() => navigate('/login', { replace: true }), 2500)
       } catch (error) {
         setLoading(false);
         if (error.response && error.response.status === 409) {
@@ -100,10 +104,10 @@ const CreateAccount = () => {
       </div>
       <div className="signInCardContainer">
         <div className="logoContainer">
-          <div className="lightLogo">
+          <div className="light">
             <img src={lightLogo} alt="logo" className='authLogo' />
           </div>
-          <div className="darkLogo">
+          <div className="dark">
             <img src={darkLogo} alt="logo" className='authLogo' />
           </div>
           <p className="authLogoTitle">NoteMaster</p>
@@ -192,7 +196,25 @@ const CreateAccount = () => {
                   onClick={() => setErrors(newErrors)}
                 />
                 <div className="typeChange" onClick={handleTypeClick}>
-                  <p>CT</p>
+                  {
+                    type === "password" ?
+                      <div className="eyeContainer">
+                        <div className="light">
+                          <img src={lightModeOpenEye} alt="CT" />
+                        </div>
+                        <div className="dark">
+                          <img src={darkModeOpenEye} alt="CT" />
+                        </div>
+                      </div> :
+                      <div className="eyeContainer">
+                        <div className="light">
+                          <img src={lightModeClosedEye} alt="CT" />
+                        </div>
+                        <div className="dark">
+                          <img src={darkModeClosedEye} alt="CT" />
+                        </div>
+                      </div>
+                  }
                 </div>
               </div>
               {errors.password && <i><p className="errorFont">{errors.password}</p></i>}

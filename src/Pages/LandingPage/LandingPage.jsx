@@ -31,7 +31,7 @@ const LandingPage = () => {
                 <div className="headerContainer">
                     <div className="logoContainer">
                         <motion.div
-                            className="lightLogo"
+                            className="light"
                             initial={{ opacity: 0, x: -100 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 1 }}
@@ -39,7 +39,7 @@ const LandingPage = () => {
                             <img src={lightLogo} alt="lightLogo" className='logo' />
                         </motion.div>
                         <motion.div
-                            className="darkLogo"
+                            className="dark"
                             initial={{ opacity: 0, x: -100 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 1 }}

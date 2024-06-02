@@ -1,14 +1,20 @@
-import React from 'react'
+import React from 'react';
 import NavBar from './Components/NavBar/NavBar'
-import {Outlet} from "react-router-dom"
+import blob1 from "./Pages/AuthPages/blob1.svg";
+import blob2 from "./Pages/AuthPages/blob2.svg";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
     <div>
-        <NavBar />
-        <main>
-            <Outlet />
-        </main>
+      <div className={`blobContainer`}>
+        <img src={blob1} className="blob" alt="blob" />
+        <img src={blob2} className="blob" alt="blob" />
+      </div>
+      <NavBar />
+      <main>
+        <Outlet />
+      </main>
     </div>
   )
 }

@@ -67,6 +67,14 @@ a {
   display: none;
 }
 
+.loaderContainer {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (prefers-color-scheme: no-preference) {
   body {
     background-color: var(--bg-primary-light);
@@ -83,6 +91,10 @@ a {
 
   input {
     color: var(--text-primary-light);
+  }
+
+  .loading-bg {
+    background-color: var(--bg-primary-dark);
   }
 
   .secondary-bg {
@@ -123,6 +135,10 @@ a {
 
   .secondary-bg {
     background-color: var(--bg-secondary-dark);
+  }
+
+  .loading-bg {
+    background-color: var(--bg-primary-light);
   }
 
   .purple-bg {

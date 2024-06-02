@@ -65,22 +65,52 @@
     height: 40px;
   }
   
+  .typeChange {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .eyeContainer img {
+    width: 32px;
+    height: 32px;
+  }
 
 @media (prefers-color-scheme: no-preference) {
-    .darkLogo {
+    .dark {
         display: none;
+    }
+
+    .light {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
 @media (prefers-color-scheme: light) {
-    .darkLogo {
+    .dark {
         display: none;
+    }
+
+    .light {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
 @media (prefers-color-scheme: dark) {
-    .lightLogo {
+    .light {
         display: none;
+    }
+
+    .dark {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 
