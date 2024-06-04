@@ -75,6 +75,16 @@ a {
   align-items: center;
 }
 
+.layoutContainer {
+  padding: 1rem;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
 @media (prefers-color-scheme: no-preference) {
   body {
     background-color: var(--bg-primary-light);

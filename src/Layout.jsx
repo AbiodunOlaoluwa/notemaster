@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div>
+    <div className="layoutContainer">
       <div className={`blobContainer`}>
         <img src={blob1} className="blob" alt="blob" />
         <img src={blob2} className="blob" alt="blob" />
