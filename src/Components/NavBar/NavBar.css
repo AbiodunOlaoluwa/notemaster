@@ -1,0 +1,22 @@
+.navBarContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 0.5rem;
+    border-radius: 1rem;
+}
+
+.linksContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.linkContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    height: 40px;
+    border-radius: 10px;
+}

@@ -1,0 +1,24 @@
+.logoutContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoutButton {
+    outline: none;
+    border: none;
+    padding: 1rem;
+    border-radius: 10px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoutButton:hover {
+    cursor: pointer;
+}
+
+.logoutButtonText {
+    font-size: 1rem;
+}

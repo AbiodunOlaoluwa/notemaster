@@ -103,6 +103,10 @@ a {
     color: var(--text-primary-light);
   }
 
+  a {
+    color: var(--text-primary-light);
+  }
+
   .loading-bg {
     background-color: var(--bg-primary-dark);
   }
@@ -130,6 +134,23 @@ a {
   .highlight-red {
     color: var(--red);
   }
+
+  .navBarContainer {
+    background-color: var(--bg-secondary-light);  
+    color: var(--text-primary-light);
+    width: 7rem;
+    font-weight: bold;
+  }
+
+  .logoutButton {
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-primary-light);
+    font-weight: bold;
+  }
+
+  .linkContainer {
+    background-color: var(--bg-primary-light);
+  }
 }
 
 /* Dark color scheme */
@@ -140,6 +161,10 @@ a {
   }
 
   input {
+    color: var(--text-primary-dark);
+  }
+
+  a {
     color: var(--text-primary-dark);
   }
 
@@ -168,5 +193,22 @@ a {
 
   .highlight-red {
     color: var(--red);
+  }
+
+  .navBarContainer {
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-primary-dark);
+    width: 7rem;
+    font-weight: bold;
+  }
+
+  .logoutButton {
+    background-color: var(--bg-primary-dark);
+    color: var(--text-primary-dark);
+    font-weight: bold;
+  }
+
+  .linkContainer {
+    background-color: var(--bg-primary-dark);
   }
 }
