@@ -11,10 +11,12 @@ const Layout = () => {
         <img src={blob1} className="blob" alt="blob" />
         <img src={blob2} className="blob" alt="blob" />
       </div>
-      <NavBar />
-      <main>
-        <Outlet />
-      </main>
+      <div className="layoutContent">
+        <NavBar />
+        <main>
+          <Outlet />
+        </main>
+      </div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import blob1 from "../blob1.svg";
@@ -11,6 +11,7 @@ import darkModeOpenEye from "../openEye_darkMode.png";
 import darkModeClosedEye from "../closedEye_darkMode.png";
 import "./SignIn.css";
 import ComponentLoadingSpinner from '../../../Components/ComponentLoadingSpinner/ComponentLoadingSpinner';
+import { UserContext } from '../../../context/UserContext';
 
 const SignIn = () => {
     axios.defaults.withCredentials = true; //for session cookie handling
@@ -20,6 +21,7 @@ const SignIn = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [type, setType] = useState("password");
+    const {login} = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -50,16 +52,11 @@ const SignIn = () => {
                 setLoading(true);
 
                 try {
-                    const response = await axios.post("http://localhost:3001/api/login", {
-                        email,
-                        password
-                    });
+                    await login(email, password);
                     setLoading(false);
-                    console.log(response.data);
                     navigate('/dashboard', {replace: true})
                 } catch (error) {
                     setLoading(false);
-                    console.error("Error loggin in:", error);
                     setError("Failed to login. Please check your credentials and try again.");
                 }
             }
@@ -88,7 +85,7 @@ const SignIn = () => {
                         </div>
                         <p className="authLogoTitle">NoteMaster</p>
                     </div>
-                    <div className="signInCard secondary-bg">
+                    <div className="signInCard">
                         <div className="signInHeader">
                             <p className="headerText">Login</p>
                             <p className="descHeaderText secondary-text">Add your details below to get back into the app</p>
@@ -97,7 +94,7 @@ const SignIn = () => {
                             <div className="emailInputContainer">
                                 <label htmlFor="emailInput" className="secondary-text">Email</label>
                                 <div className={`inputFieldContainer ${errors.email ? "error" : ""}`}>
-                                    <input id="emailInput" type="text" className="emailInput" autoFocus placeholder="johndoe@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} onClick={() => setErrors(newErrors)} />
+                                    <input id="emailInput" type="text" className="emailInput" autoFocus autocomplete="off" placeholder="johndoe@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} onClick={() => setErrors(newErrors)} />
                                 </div>
                                 {errors.email && <i><p className="errorFont">{errors.email}</p></i>}
                             </div>

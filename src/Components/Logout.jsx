@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import "./Logout.css"
+import "./Logout.css";
+import { UserContext } from '../context/UserContext';
 
 const LogoutButton = () => {
 
+    const {logout} = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get("http://localhost:3001/api/logout", {withCredentials: true});
-            if (response.data.message === "Logout Successful") {
-                navigate("/login", {replace: true});
-            }
+            await logout();
+            navigate("./login", {replace: true})
         } catch (error) {
             console.error("Error logging out:", error);
         }

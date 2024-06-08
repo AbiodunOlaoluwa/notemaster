@@ -1,0 +1,45 @@
+.dashboardMainContainer {
+  border-radius: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0 0.5rem;
+}
+
+.dashboardHeaderContainer {
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+main {
+  z-index: 2;
+}
+
+.analyticsOverviewContainer {
+    display: flex;
+    flex-direction: row;
+    /* gap: 0.5rem; */
+}
+
+.chartContainer {
+  margin: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chartGroup1 {
+    width: 40vw;
+}
+
+.chartGroup2 {
+    width: 50%;
+    height: 100%;
+    display: flex;  
+    flex-direction: column;
+}

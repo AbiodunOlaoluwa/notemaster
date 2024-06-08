@@ -1,3 +1,4 @@
+// src/context/UserContext.js
 
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
@@ -16,8 +17,29 @@ export const UserProvider = ({ children }) => {
             .catch(error => console.error('Error fetching user:', error));
     }, []);
 
+    const login = async (email, password) => {
+        try {
+            const response = await axios.post('http://localhost:3001/api/login', { email, password }, { withCredentials: true });
+            setUser(response.data.user); // Update user context
+            return response.data;
+        } catch (error) {
+            console.error('Login failed:', error);
+            throw error;
+        }
+    };
+
+    const logout = async () => {
+        try {
+            await axios.get('http://localhost:3001/api/logout', { withCredentials: true });
+            setUser(null); // Clear user context
+        } catch (error) {
+            console.error('Logout failed:', error);
+            throw error;
+        }
+    };
+
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, login, logout }}>
             {children}
         </UserContext.Provider>
     );

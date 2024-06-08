@@ -67,15 +67,11 @@ a {
   display: none;
 }
 
-.loaderContainer {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
+.layoutContainer {
+  z-index: 2;
 }
 
-.layoutContainer {
+.layoutContent {
   padding: 1rem;
   width: 100vw;
   height: 100vh;
@@ -83,6 +79,15 @@ a {
   flex-direction: row;
   justify-content: flex-start;
   gap: 20px;
+  z-index: 2;
+}
+
+.loaderContainer {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (prefers-color-scheme: no-preference) {
@@ -138,18 +143,24 @@ a {
   .navBarContainer {
     background-color: var(--bg-secondary-light);  
     color: var(--text-primary-light);
-    width: 7rem;
     font-weight: bold;
   }
 
   .logoutButton {
-    background-color: var(--bg-secondary-dark);
+    background-color: var(--bg-primary-light);
     color: var(--text-primary-light);
     font-weight: bold;
+    width: 100%;
   }
 
   .linkContainer {
     background-color: var(--bg-primary-light);
+  }
+
+  .dashboardMainContainer {
+    background-color: var(--bg-secondary-light);
+    color: var(--text-primary-light);
+    width: 100%;
   }
 }
 
@@ -206,9 +217,16 @@ a {
     background-color: var(--bg-primary-dark);
     color: var(--text-primary-dark);
     font-weight: bold;
+    width: 100%;
   }
 
   .linkContainer {
     background-color: var(--bg-primary-dark);
+  }
+
+  .dashboardMainContainer {
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-primary-dark);
+    width: 100%;
   }
 }

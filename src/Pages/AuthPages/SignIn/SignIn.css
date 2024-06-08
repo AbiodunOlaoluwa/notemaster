@@ -1,13 +1,16 @@
 
 @media (prefers-color-scheme: dark) {
     .signInCard {
-        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(100px);
     }
 }
 
 @media (prefers-color-scheme: light) {
-
+    .signInCard {
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(100px);
+    }
 }
 
 .signInPage {
@@ -27,6 +30,7 @@
     align-items: center;
     width: fit-content;
     height: fit-content;
+    z-index: 2;
 }
 
 .logoContainer {

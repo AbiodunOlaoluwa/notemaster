@@ -127,6 +127,7 @@ const CreateAccount = () => {
                     type="text"
                     className="firstNameInput"
                     autoFocus
+                    autoComplete="off"
                     placeholder="John"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -143,6 +144,7 @@ const CreateAccount = () => {
                     type="text"
                     className="lastNameInput"
                     placeholder="Doe"
+                    autoComplete="off"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     onClick={() => setErrors(newErrors)}
@@ -160,6 +162,7 @@ const CreateAccount = () => {
                     type="text"
                     className="userNameInput"
                     placeholder="johndoe"
+                    autoComplete="off"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     onClick={() => setErrors(newErrors)}
@@ -175,6 +178,7 @@ const CreateAccount = () => {
                     type="text"
                     className="emailInput"
                     placeholder="johndoe@gmail.com"
+                    autoComplete="off"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onClick={() => setErrors(newErrors)}
