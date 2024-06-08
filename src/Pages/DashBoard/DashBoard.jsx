@@ -41,7 +41,7 @@ const DashBoard = () => {
   const lineData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
     datasets: [{
-      label: 'Monthly Writing Time',
+      label: 'Monthly Writing Time (minutes)',
       data: [120, 150, 180, 200, 210], // example data
       fill: false,
       borderColor: '#FF6384'

@@ -141,7 +141,7 @@ a {
   }
 
   .navBarContainer {
-    background-color: var(--bg-secondary-light);  
+    background-color: var(--bg-secondary-light);
     color: var(--text-primary-light);
     font-weight: bold;
   }
@@ -161,6 +161,11 @@ a {
     background-color: var(--bg-secondary-light);
     color: var(--text-primary-light);
     width: 100%;
+  }
+
+  .createTextContainer {
+    background-color: var(--bg-secondary-light);
+    color: var(--text-primary-light);
   }
 }
 
@@ -228,5 +233,10 @@ a {
     background-color: var(--bg-secondary-dark);
     color: var(--text-primary-dark);
     width: 100%;
+  }
+
+  .createTextContainer {
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-primary-dark);
   }
 }
