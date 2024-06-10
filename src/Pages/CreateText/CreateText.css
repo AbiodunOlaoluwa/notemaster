@@ -8,6 +8,11 @@
   flex: 1;
 }
 
+.buttonsContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
 .textEditor {
   flex: 1;
   border: none;
@@ -39,8 +44,24 @@
   transition: background-color 0.3s ease;
 }
 
+.exitButton {
+    padding: 0.5rem 1rem;
+    align-self: flex-start; /* Align the button to the right */
+    border: none;
+    border-radius: 0.5rem;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 @media (hover) {
   .saveButton:hover {
+    cursor: pointer;
+    background-color: grey;
+  }
+
+  .exitButton:hover {
     cursor: pointer;
     background-color: grey;
   }
