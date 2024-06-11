@@ -17,17 +17,23 @@ const CreateText = () => {
   const [isTabActive, setIsTabActive] = useState(true);
   const [sessionId, setSessionId] = useState(null);
   const navigate = useNavigate();
+  const autoSaveInterval = useRef(null);
   const lastActiveTime = useRef(Date.now());
   const typingTimeout = useRef(null);
 
   useEffect(() => {
     setStartTime(Date.now());
 
+    autoSaveInterval.current = setInterval(() => {
+      saveContent();
+    }, 10000);
+
     // Event listeners for tab visibility
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
+      clearInterval(autoSaveInterval.current);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -92,7 +98,7 @@ const CreateText = () => {
           content,
           writingTime,
           breakTime: totalBreakTime,
-          inactiveTime: totalBreakTime,
+          inactiveTime: totalInactiveTime,
         })
       } catch (error) {
         console.error('Error saving content:', error);

@@ -80,6 +80,7 @@ a {
   justify-content: flex-start;
   gap: 20px;
   z-index: 2;
+  
 }
 
 .loaderContainer {
@@ -167,6 +168,11 @@ a {
     background-color: var(--bg-secondary-light);
     color: var(--text-primary-light);
   }
+
+  .textsPageContainer {
+    background-color: var(--bg-secondary-light);
+    color: var(--text-primary-light);
+  }
 }
 
 /* Dark color scheme */
@@ -236,6 +242,11 @@ a {
   }
 
   .createTextContainer {
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-primary-dark);
+  }
+
+  .textsPageContainer {
     background-color: var(--bg-secondary-dark);
     color: var(--text-primary-dark);
   }
