@@ -30,6 +30,9 @@
   transition: transform 0.2s;
 }
 
+.textsPageReactQuill {
+    text-overflow: ellipsis;
+}
 
 .textCardContent {
     overflow: hidden;

@@ -173,6 +173,11 @@ a {
     background-color: var(--bg-secondary-light);
     color: var(--text-primary-light);
   }
+
+  .editPageContainer {
+    background-color: var(--bg-secondary-light);
+    color: var(--text-primary-light);
+  }
 }
 
 /* Dark color scheme */
@@ -247,6 +252,11 @@ a {
   }
 
   .textsPageContainer {
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-primary-dark);
+  }
+
+  .editPageContainer {
     background-color: var(--bg-secondary-dark);
     color: var(--text-primary-dark);
   }

@@ -76,6 +76,7 @@ const CreateText = () => {
     const totalBreakTime = breakTime / 60000; // Convert to minutes
     const writingTime = totalTime - totalBreakTime;
     const totalInactiveTime = inactiveTime / 60000; // Convert to minutes
+
     if (!sessionId && content) {
       try {
         const response = await axios.post('http://localhost:3001/api/save-session', {
@@ -89,8 +90,7 @@ const CreateText = () => {
       } catch (error) {
         console.error('Error saving content:', error);
       }
-    }
-    else if (sessionId && content) {
+    } else if (sessionId && content) {
       try {
         await axios.post('http://localhost:3001/api/edit-session', {
           sessionId,
@@ -99,7 +99,7 @@ const CreateText = () => {
           writingTime,
           breakTime: totalBreakTime,
           inactiveTime: totalInactiveTime,
-        })
+        });
       } catch (error) {
         console.error('Error saving content:', error);
       }
@@ -107,46 +107,47 @@ const CreateText = () => {
   };
 
   const endSession = () => {
-    saveContent();
-    navigate('/dashboard');
-  }
-
-const handleBeforeUnload = (e) => {
-  e.preventDefault();
-  endSession();
-  e.returnValue = ''; // For modern browsers
-};
-
-const handleKeyDown = (event) => {
-  if ((event.ctrlKey || event.metaKey) && event.key === "s") {
-    event.preventDefault();
-    console.log("Save...")
-    saveContent();
-  }
-};
-
-useEffect(() => {
-  window.addEventListener('beforeunload', handleBeforeUnload);
-  return () => {
-    window.removeEventListener('beforeunload', handleBeforeUnload);
+    saveContent().then(() => {
+      navigate('/dashboard');
+    });
   };
-}, [startTime, breakTime, inactiveTime]);
 
-return (
-  <div className="createTextContainer">
-    <ReactQuill
-      value={content}
-      onChange={handleContentChange}
-      theme="snow"
-      placeholder="Start writing your text..."
-      className="textEditor"
-    />
-    <div className="buttonsContainer">
-      <button onClick={saveContent} className="saveButton">Save</button>
-      <button onClick={endSession} className="exitButton">Exit</button>
+  const handleBeforeUnload = (e) => {
+    e.preventDefault();
+    endSession();
+    e.returnValue = ''; // For modern browsers
+  };
+
+  const handleKeyDown = (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+      event.preventDefault();
+      console.log("Save...");
+      saveContent();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [startTime, breakTime, inactiveTime]);
+
+  return (
+    <div className="createTextContainer">
+      <ReactQuill
+        value={content}
+        onChange={handleContentChange}
+        theme="snow"
+        placeholder="Start writing your text..."
+        className="textEditor"
+      />
+      <div className="buttonsContainer">
+        <button onClick={saveContent} className="saveButton">Save</button>
+        <button onClick={endSession} className="exitButton">Exit</button>
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default CreateText;

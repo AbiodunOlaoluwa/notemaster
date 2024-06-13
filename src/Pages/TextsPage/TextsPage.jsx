@@ -5,6 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import './TextsPage.css';
+import { trefoil } from 'ldrs';
 
 const TextsPage = () => {
   const { user } = useContext(UserContext);
@@ -60,13 +61,13 @@ const TextsPage = () => {
               <div className="textCardContent" onClick={() => navigate(`/edit-text/${text.id}`)}>
                 <ReactQuill
                   className='textsPageReactQuill'
-                  value={text.content.substring(0, 150)}
+                  value={`${text.content.substring(0, 200)}...`}
                   readOnly={true}
                   modules={{toolbar: false}}
                 />
               </div>
               <div className="textCardActions">
-                <button onClick={() => navigate(`/edit-text/${text.id}`)}>Edit</button>
+                <button onClick={() => navigate("/editPage", {replace: true, state: {sessionId: text.id, userId: user.id}})}>Edit</button>
                 <button onClick={() => handleDelete(text.id)}>Delete</button>
               </div>
             </div>

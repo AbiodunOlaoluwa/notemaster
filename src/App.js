@@ -6,6 +6,8 @@ import CreateText from './Pages/CreateText/CreateText';
 import TextsPage from './Pages/TextsPage/TextsPage';
 import SignIn from './Pages/AuthPages/SignIn/SignIn';
 import CreateAccount from './Pages/AuthPages/CreateAccount/CreateAccount';
+import EditPage from './Pages/EditPage/EditPage';
+import ExceptionPage from './Pages/404Page/404Page';
 import Layout from './Layout';
 import PrivateRoute from './Components/PrivateRoute';
 import AuthRoute from './Components/AuthRoute';
@@ -23,7 +25,9 @@ function App() {
             <Route path="/dashboard" element={<PrivateRoute element={<DashBoard />} />} />
             <Route path="/createText" element={<PrivateRoute element={<CreateText />} />} />
             <Route path="/textsPage" element={<PrivateRoute element={<TextsPage />} />} />
+            <Route path="/editPage" element={<PrivateRoute element={<EditPage />} />} />
           </Route>
+          <Route path="/*" element={<ExceptionPage />} />
         </Routes>
       </Router>
     </UserProvider>

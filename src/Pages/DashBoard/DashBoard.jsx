@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 import { UserContext } from '../../context/UserContext';
 import "./DashBoard.css";
 import { trefoil } from 'ldrs';
@@ -7,45 +8,88 @@ import BarChart from '../../Components/Charts/BarChart';
 import LineChart from '../../Components/Charts/LineChart';
 import "../../Components/Charts/ChartSetup";
 
-
 const DashBoard = () => {
-
   const { user } = useContext(UserContext);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [pieData, setPieData] = useState(null);
+  const [barData, setBarData] = useState(null);
+  const [lineData, setLineData] = useState(null);
 
   trefoil.register();
 
   useEffect(() => {
     if (user) {
+      fetchData();
+    }
+  }, [user]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/dashboard-data/${user.id}`);
+      const { activityBreakdown, sessionDurations, monthlyProgress } = response.data;
+
+      if (activityBreakdown && sessionDurations && monthlyProgress) {
+        setPieData({
+          labels: ['Writing Duration (minutes)', 'Break Duration (minutes)', 'Inactive Duration (minutes)'],
+          datasets: [{
+            data: [activityBreakdown.writing_time, activityBreakdown.break_time, activityBreakdown.inactive_time],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          }]
+        });
+
+        setBarData({
+          labels: sessionDurations.sessions.map(session => `Session ${session.id}`),
+          datasets: [{
+            label: 'Writing Duration (minutes)',
+            data: sessionDurations.sessions.map(session => session.writing_duration),
+            backgroundColor: '#36A2EB'
+          }]
+        });
+
+        setLineData({
+          labels: monthlyProgress.months,
+          datasets: [{
+            label: 'Monthly Writing Duration (minutes)',
+            data: monthlyProgress.writingTimes,
+            fill: false,
+            borderColor: '#FF6384'
+          }]
+        });
+      } else {
+        // Set default data for new users
+        setPieData({
+          labels: ['Writing Duration (minutes)', 'Break Duration (minutes)', 'Inactive Duration (minutes)'],
+          datasets: [{
+            data: [0, 0, 0],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          }]
+        });
+
+        setBarData({
+          labels: ['Session 1', 'Session 2', 'Session 3'],
+          datasets: [{
+            label: 'Writing Duration (minutes)',
+            data: [0, 0, 0],
+            backgroundColor: '#36A2EB'
+          }]
+        });
+
+        setLineData({
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+          datasets: [{
+            label: 'Monthly Writing Duration (minutes)',
+            data: [0, 0, 0, 0, 0],
+            fill: false,
+            borderColor: '#FF6384'
+          }]
+        });
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
       setLoading(false);
     }
-  }, [user])
-
-  const pieData = {
-    labels: ['Writing Time', 'Break Time', 'Other Activities'],
-    datasets: [{
-      data: [60, 25, 15], // example data
-      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
-    }]
-  };
-
-  const barData = {
-    labels: ['Session 1', 'Session 2', 'Session 3'],
-    datasets: [{
-      label: 'Writing Duration (minutes)',
-      data: [30, 45, 50], // example data
-      backgroundColor: '#36A2EB'
-    }]
-  };
-
-  const lineData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [{
-      label: 'Monthly Writing Time (minutes)',
-      data: [120, 150, 180, 200, 210], // example data
-      fill: false,
-      borderColor: '#FF6384'
-    }]
   };
 
   const chartOptions = {
@@ -72,25 +116,24 @@ const DashBoard = () => {
             <div className="chartGroup1">
               <div className="chartContainer">
                 <h2>Activity Breakdown</h2>
-                <PieChart data={pieData} options={chartOptions} />
+                {pieData && <PieChart data={pieData} options={chartOptions} />}
               </div>
             </div>
             <div className="chartGroup2">
               <div className="chartContainer G2">
                 <h2>Session Durations</h2>
-                <BarChart data={barData} options={chartOptions} />
+                {barData && <BarChart data={barData} options={chartOptions} />}
               </div>
               <div className="chartContainer G2">
                 <h2>Monthly Progress</h2>
-                <LineChart data={lineData} options={chartOptions} />
+                {lineData && <LineChart data={lineData} options={chartOptions} />}
               </div>
             </div>
           </div>
         </>
       }
     </div>
-
   )
 }
 
-export default DashBoard
+export default DashBoard;
