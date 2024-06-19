@@ -7,6 +7,7 @@ import { UserContext } from '../../context/UserContext';
 import "./CreateText.css";
 
 const DEBOUNCE_DELAY = 5000; // 5 seconds
+const AUTOSAVEINTERVAL = 1000;
 
 const CreateText = () => {
   const { user } = useContext(UserContext);
@@ -15,29 +16,32 @@ const CreateText = () => {
   const [breakTime, setBreakTime] = useState(0);
   const [inactiveTime, setInactiveTime] = useState(0);
   const [isTabActive, setIsTabActive] = useState(true);
+  const [interruptions, setInterruptions] = useState(0);
   const [sessionId, setSessionId] = useState(null);
   const navigate = useNavigate();
-  const autoSaveInterval = useRef(null);
   const lastActiveTime = useRef(Date.now());
   const typingTimeout = useRef(null);
 
   useEffect(() => {
     setStartTime(Date.now());
 
-    autoSaveInterval.current = setInterval(() => {
-      saveContent();
-    }, 10000);
-
     // Event listeners for tab visibility
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      clearInterval(autoSaveInterval.current);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [user.id]);
+
+  useEffect(() => {
+    const saveInterval = setInterval(() => {
+      saveContent();
+    }, AUTOSAVEINTERVAL);
+
+    return () => clearInterval(saveInterval);
+  }, [content, breakTime]);
 
   const handleVisibilityChange = () => {
     if (document.hidden) {
@@ -46,6 +50,7 @@ const CreateText = () => {
     } else {
       setIsTabActive(true);
       const inactiveDuration = Date.now() - lastActiveTime.current;
+      setInterruptions(prev => prev + 1);
       setInactiveTime(prev => prev + inactiveDuration);
     }
   };
@@ -65,6 +70,7 @@ const CreateText = () => {
       const breakDuration = now - lastActiveTime.current;
       if (breakDuration > DEBOUNCE_DELAY) {
         setBreakTime(prev => prev + breakDuration);
+        setInterruptions(prev => prev + 1);
       }
       lastActiveTime.current = now;
     }, DEBOUNCE_DELAY);

@@ -3,13 +3,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./EditPage.css";
 
 const DEBOUNCE_DELAY = 5000; // 5 seconds
+const AUTOSAVEINTERVAL = 1000;
+const RECOMMENDATION_INTERVAL = 300000;
 
 const EditPage = () => {
     const { state } = useLocation();
-    const textId = state.sessionId;
+    const textId = state?.sessionId;
     const navigate = useNavigate();
     const userId = state?.userId;
     const [content, setContent] = useState("");
@@ -17,9 +21,13 @@ const EditPage = () => {
     const [startTime, setStartTime] = useState(Date.now());
     const [breakTime, setBreakTime] = useState(0);
     const [inactiveTime, setInactiveTime] = useState(0);
+    const [interruptions, setInterruptions] = useState(0);
     const [isTabActive, setIsTabActive] = useState(true);
     const lastActiveTime = useRef(Date.now());
     const typingTimeout = useRef(null);
+    let savedBreakTime = useRef(0);
+    let savedWritingTime = useRef(0);
+    let savedInactiveTime = useRef(0);
 
     useEffect(() => {
         const fetchText = async () => {
@@ -28,9 +36,6 @@ const EditPage = () => {
                 setLoading(false);
                 const data = response.data;
                 setContent(data.content);
-                // setBreakTime(isNaN(parseFloat(data.break_time)) ? 0 : parseFloat(data.break_time) * 60000);
-                // setWritingDuration(isNaN(parseFloat(data.writing_time)) ? 0 : parseFloat(data.writing_time) * 60000);
-                // setInactiveTime(isNaN(parseFloat(data.inactive_time)) ? 0 : parseFloat(data.inactive_time) * 60000);
             } catch (error) {
                 console.error("Error fetching text:", error);
                 setLoading(false);
@@ -49,6 +54,26 @@ const EditPage = () => {
         };
     }, [textId, userId, navigate]);
 
+    useEffect(() => {
+        let comparisonContent = "";
+        const saveInterval = setInterval(() => {
+            if (comparisonContent !== content) {
+                comparisonContent = content;
+                handleSave();
+            }
+        }, AUTOSAVEINTERVAL);
+
+        const recommendationInterval = setInterval(() => {
+            showRecommendations();
+        }, RECOMMENDATION_INTERVAL);
+
+        return () => {
+            clearInterval(saveInterval);
+            clearInterval(recommendationInterval);
+        }
+
+    }, [content]);
+
     const handleVisibilityChange = () => {
         if (document.hidden) {
             setIsTabActive(false);
@@ -56,6 +81,7 @@ const EditPage = () => {
         } else {
             setIsTabActive(true);
             const inactiveDuration = Date.now() - lastActiveTime.current;
+            setInterruptions(prev => prev + 1);
             setInactiveTime(prev => prev + inactiveDuration);
         }
     };
@@ -75,6 +101,7 @@ const EditPage = () => {
             const breakDuration = now - lastActiveTime.current;
             if (breakDuration > DEBOUNCE_DELAY) {
                 setBreakTime(prev => prev + breakDuration);
+                setInterruptions(prev => prev + 1);
             }
             lastActiveTime.current = now;
         }, DEBOUNCE_DELAY);
@@ -83,7 +110,6 @@ const EditPage = () => {
     const handleKeyDown = (event) => {
         if ((event.ctrlKey || event.metaKey) && event.key === "s") {
             event.preventDefault();
-            console.log("Save...");
             handleSave();
         }
     };
@@ -93,6 +119,9 @@ const EditPage = () => {
         const totalBreakTime = breakTime / 60000; // Convert to minutes
         const writingTime = (totalTime - totalBreakTime);
         const totalInactiveTime = inactiveTime / 60000; // Convert to minutes
+        savedWritingTime.current += writingTime;
+        savedBreakTime += totalBreakTime;
+        savedInactiveTime += totalInactiveTime;
 
         try {
             await axios.post(`http://localhost:3001/api/update-text/${textId}`, {
@@ -101,6 +130,7 @@ const EditPage = () => {
                 writingTime: writingTime,
                 breakTime: totalBreakTime,
                 inactiveTime: totalInactiveTime,
+                interruptions,
             });
             setBreakTime(0);
             setInactiveTime(0);
@@ -118,18 +148,31 @@ const EditPage = () => {
         }
     };
 
+    const showRecommendations = () => {
+        const writingTime = savedWritingTime.current;
+
+        if (writingTime > 2 && interruptions > 1) {
+            toast.warn("You've been working for a while with frequent interruptions. Consider taking a break to refresh!");
+        } else if (writingTime > 3) {
+            toast.info("You've been working for over an hour. Time for a break and stay hydrated!");
+        } else if (writingTime > 5) {
+            toast.warn("You've been working for over 90 minutes. It's important to take a longer break now.");
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
 
     const handleExit = () => {
         handleSave();
-        navigate('/textsPage', {replace: true});
+        navigate('/textsPage', { replace: true });
     }
 
     return (
         <div className="editPageContainer">
-            <ReactQuill value={content} onChange={handleContentChange} className="textEditor" />
+            <ToastContainer />
+            <ReactQuill value={content} onChange={handleContentChange} className="textEditor" onBlur={() => setInterruptions(interruptions + 1)} />
             <div className="buttonsContainer">
                 <button onClick={handleSave} className="saveButton">Save</button>
                 <button onClick={handleDelete} className="exitButton">Delete</button>
