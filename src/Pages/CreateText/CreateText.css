@@ -34,10 +34,11 @@
 }
 
 .saveButton {
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1rem;
   align-self: flex-start; /* Align the button to the right */
   border: none;
   border-radius: 0.5rem;
+  font-size: 1rem;
   background-color: black;
   color: white;
   cursor: pointer;
@@ -45,10 +46,11 @@
 }
 
 .exitButton {
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1rem;
     align-self: flex-start; /* Align the button to the right */
     border: none;
     border-radius: 0.5rem;
+    font-size: 1rem;
     background-color: red;
     color: white;
     cursor: pointer;
