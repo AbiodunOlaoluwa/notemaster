@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         // Fetch the authenticated user from the backend on initial load
-        axios.get('http://localhost:3001/api/getUser', { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/getUser`, { withCredentials: true })
             .then(response => {
                 setUser(response.data);
             })
@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const response = await axios.post('http://localhost:3001/api/login', { email, password }, { withCredentials: true });
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/login`, { email, password }, { withCredentials: true });
             setUser(response.data.user); // Update user context
             return response.data;
         } catch (error) {
@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await axios.get('http://localhost:3001/api/logout', { withCredentials: true });
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/logout`, { withCredentials: true });
             setUser(null); // Clear user context
         } catch (error) {
             console.error('Logout failed:', error);

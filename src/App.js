@@ -8,6 +8,7 @@ import SignIn from './Pages/AuthPages/SignIn/SignIn';
 import CreateAccount from './Pages/AuthPages/CreateAccount/CreateAccount';
 import EditPage from './Pages/EditPage/EditPage';
 import ExceptionPage from './Pages/404Page/404Page';
+import Recommendations from './Pages/RecommendationsPage/Recommendations';
 import Layout from './Layout';
 import PrivateRoute from './Components/PrivateRoute';
 import AuthRoute from './Components/AuthRoute';
@@ -26,6 +27,7 @@ function App() {
             <Route path="/createText" element={<PrivateRoute element={<CreateText />} />} />
             <Route path="/textsPage" element={<PrivateRoute element={<TextsPage />} />} />
             <Route path="/editPage" element={<PrivateRoute element={<EditPage />} />} />
+            <Route path="/recommendations" element={<PrivateRoute element={<Recommendations />} />} />
           </Route>
           <Route path="/*" element={<ExceptionPage />} />
         </Routes>

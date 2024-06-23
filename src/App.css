@@ -85,7 +85,7 @@ a {
 
 .loaderContainer {
   display: flex;
-  width: 100vw;
+  width: 82vw;
   height: 100vh;
   justify-content: center;
   align-items: center;
@@ -178,6 +178,24 @@ a {
     background-color: var(--bg-secondary-light);
     color: var(--text-primary-light);
   }
+
+  .recommendationsButton {
+    background-color: var(--bg-primary-light);
+    color: var(--text-primary-light);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .mainRecommendationsContainer {
+    background-color: var(--bg-secondary-light);
+    color: var(--text-primary-light);
+  }
+
+  .recommendationContainer {
+    background-color: var(--bg-primary-light);
+    color: var(--text-primary-light);
+    font-size: 1.2rem;
+  }
 }
 
 /* Dark color scheme */
@@ -259,5 +277,23 @@ a {
   .editPageContainer {
     background-color: var(--bg-secondary-dark);
     color: var(--text-primary-dark);
+  }
+
+  .recommendationsButton {
+    background-color: var(--bg-primary-dark);
+    color: var(--text-primary-dark);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .mainRecommendationsContainer {
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-primary-dark);
+  }
+
+  .recommendationContainer {
+    background-color: var(--bg-primary-dark);
+    color: var(--text-primary-dark);
+    font-size: 1.2rem;
   }
 }

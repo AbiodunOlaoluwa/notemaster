@@ -9,7 +9,7 @@ class PrivateRoute extends React.Component {
     };
 
     componentDidMount() {
-        axios.get('http://localhost:3001/api/checkAuth', { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/checkAuth`, { withCredentials: true })
             .then(response => {
                 this.setState({ authenticated: true, loading: false });
             })

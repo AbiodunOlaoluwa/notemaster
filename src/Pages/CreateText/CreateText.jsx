@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { UserContext } from '../../context/UserContext';
 import "./CreateText.css";
 
+
 const DEBOUNCE_DELAY = 5000; // 5 seconds
 const AUTOSAVE_INTERVAL = 1000; // 1 second
 const RECOMMENDATION_INTERVAL = 60000; // 1 minute
@@ -97,7 +98,7 @@ const CreateText = () => {
 
     if (!sessionId && content) {
       try {
-        const response = await axios.post('http://localhost:3001/api/save-session', {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/save-session`, {
           userId: user.id,
           content,
           writingTime,
@@ -110,7 +111,7 @@ const CreateText = () => {
       }
     } else if (sessionId && content) {
       try {
-        await axios.post('http://localhost:3001/api/edit-session', {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/edit-session`, {
           sessionId,
           userId: user.id,
           content,
@@ -126,7 +127,7 @@ const CreateText = () => {
 
   const endSession = () => {
     saveContent().then(() => {
-      navigate('/dashboard');
+      navigate('/recommendations');
     });
   };
 

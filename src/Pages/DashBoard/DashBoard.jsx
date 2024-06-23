@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../context/UserContext';
 import "./DashBoard.css";
@@ -25,7 +26,7 @@ const DashBoard = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/dashboard-data/${user.id}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/dashboard-data/${user.id}`);
       const { activityBreakdown, sessionDurations, monthlyProgress } = response.data;
 
       if (activityBreakdown && sessionDurations && monthlyProgress) {
@@ -117,6 +118,11 @@ const DashBoard = () => {
               <div className="chartContainer">
                 <h2>Activity Breakdown</h2>
                 {pieData && <PieChart data={pieData} options={chartOptions} />}
+              </div>
+              <div className="recommendationsButtonContainer">
+                <Link to={"/recommendations"}>
+                  <button className="recommendationsButton">Recommendations</button>
+                </Link>
               </div>
             </div>
             <div className="chartGroup2">

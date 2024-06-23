@@ -15,7 +15,7 @@ const TextsPage = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/dashboard", {replace: true});
+      navigate("/dashboard", { replace: true });
     }
     else setLoading(false);
   }, [user])
@@ -23,7 +23,7 @@ const TextsPage = () => {
   useEffect(() => {
     const fetchTexts = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/user-texts/${user.id}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-texts/${user.id}`);
         setTexts(response.data);
       } catch (error) {
         console.error('Error fetching texts:', error);
@@ -35,12 +35,27 @@ const TextsPage = () => {
 
   const handleDelete = async (sessionId) => {
     try {
-      await axios.delete(`http://localhost:3001/api/delete-text/${sessionId}`);
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/delete-text/${sessionId}`);
       setTexts(texts.filter(text => text.id !== sessionId));
     } catch (error) {
       console.error('Error deleting text:', error);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="loaderContainer">
+        <l-trefoil
+          size="40"
+          stroke="4"
+          stroke-length="0.15"
+          bg-opacity="0.1"
+          speed="1.4"
+          color="white"
+        ></l-trefoil>
+      </div>
+    )
+  }
 
   return (
     <div className="textsPageContainer">
@@ -54,7 +69,7 @@ const TextsPage = () => {
           color="white"
         ></l-trefoil>
       </div>}
-      {user && texts.length>0 ? 
+      {user && texts.length > 0 ?
         <div className="textsMap">
           {texts.map(text => (
             <div className="textCard" key={text.id}>
@@ -63,22 +78,22 @@ const TextsPage = () => {
                   className='textsPageReactQuill'
                   value={`${text.content.substring(0, 200)}...`}
                   readOnly={true}
-                  modules={{toolbar: false}}
+                  modules={{ toolbar: false }}
                 />
               </div>
               <div className="textCardActions">
-                <button onClick={() => navigate("/editPage", {replace: true, state: {sessionId: text.id, userId: user.id}})}>Edit</button>
+                <button onClick={() => navigate("/editPage", { replace: true, state: { sessionId: text.id, userId: user.id } })}>Edit</button>
                 <button onClick={() => handleDelete(text.id)}>Delete</button>
               </div>
             </div>
           ))}
-        </div> : 
+        </div> :
         <div className="defaultNoTexts">
           <div className="defaultTextsPageText">
             <p>When you create texts, they will be displayed here...</p>
           </div>
         </div>
-        }
+      }
     </div>
   );
 };

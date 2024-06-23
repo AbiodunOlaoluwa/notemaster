@@ -38,7 +38,7 @@ const EditPage = () => {
     useEffect(() => {
         const fetchText = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/text/${textId}`);
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/text/${textId}`);
                 setLoading(false);
                 const data = response.data;
                 setContent(data.content);
@@ -132,7 +132,7 @@ const EditPage = () => {
         savedInactiveTime += totalInactiveTime;
 
         try {
-            await axios.post(`http://localhost:3001/api/update-text/${textId}`, {
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/update-text/${textId}`, {
                 userId,
                 content,
                 writingTime: writingTime,
@@ -149,7 +149,7 @@ const EditPage = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3001/api/delete-text/${textId}`);
+            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/delete-text/${textId}`);
             navigate('/textsPage');
         } catch (error) {
             console.error("Error deleting text:", error);
@@ -219,7 +219,7 @@ const EditPage = () => {
 
     const handleExit = () => {
         handleSave();
-        navigate('/textsPage', { replace: true });
+        navigate('/recommendations', { replace: true });
     }
 
     const handleFullscreenToggle = () => {
