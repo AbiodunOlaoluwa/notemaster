@@ -73,7 +73,7 @@ const TextsPage = () => {
         <div className="textsMap">
           {texts.map(text => (
             <div className="textCard" key={text.id}>
-              <div className="textCardContent" onClick={() => navigate(`/edit-text/${text.id}`)}>
+              <div className="textCardContent" onClick={() => navigate("/editPage", { replace: true, state: { sessionId: text.id, userId: user.id } })}>
                 <ReactQuill
                   className='textsPageReactQuill'
                   value={`${text.content.substring(0, 200)}...`}
