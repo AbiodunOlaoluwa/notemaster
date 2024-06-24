@@ -39,7 +39,7 @@ const DashBoard = () => {
         });
 
         setBarData({
-          labels: sessionDurations.sessions.map(session => `Session ${session.id}`),
+          labels: sessionDurations.sessions.map((session, index) => `Session ${index + 1}`),
           datasets: [{
             label: 'Writing Duration (minutes)',
             data: sessionDurations.sessions.map(session => session.writing_duration),
