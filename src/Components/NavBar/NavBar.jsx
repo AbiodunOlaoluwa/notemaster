@@ -32,7 +32,7 @@ const NavBar = () => {
         <div className="linksContainer">
           <div className="headerContainer">
             <h1 className="headerText">
-              {user.firstname}
+              {`${user.firstname.substring(0, 7)}...`}
             </h1>
           </div>
           <Link to="/dashboard">

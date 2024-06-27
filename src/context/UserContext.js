@@ -1,5 +1,3 @@
-// src/context/UserContext.js
-
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -9,7 +7,6 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        // Fetch the authenticated user from the backend on initial load
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/getUser`, { withCredentials: true })
             .then(response => {
                 setUser(response.data);
@@ -20,7 +17,7 @@ export const UserProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/login`, { email, password }, { withCredentials: true });
-            setUser(response.data.user); // Update user context
+            setUser(response.data.user);
             return response.data;
         } catch (error) {
             console.error('Login failed:', error);
@@ -31,7 +28,7 @@ export const UserProvider = ({ children }) => {
     const logout = async () => {
         try {
             await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/logout`, { withCredentials: true });
-            setUser(null); // Clear user context
+            setUser(null);
         } catch (error) {
             console.error('Logout failed:', error);
             throw error;

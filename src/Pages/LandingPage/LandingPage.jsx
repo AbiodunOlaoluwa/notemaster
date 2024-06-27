@@ -63,7 +63,7 @@ const LandingPage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
                         >
-                            Smart <span className="highlight-purple">AI Assisted</span> Text Editing.
+                            Smart <span className="highlight-purple">Data Driven</span> Text Editing.
                         </motion.h1>
                     </div>
                     <div className="typeWriterEffectContainer">

@@ -95,7 +95,7 @@ const DashBoard = () => {
 
   const chartOptions = {
     responsive: true,
-    maintainAspectRatio: true
+    maintainAspectRatio: true,
   };
 
   return (

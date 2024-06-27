@@ -1,5 +1,5 @@
 import './App.css';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './Pages/LandingPage/LandingPage';
 import DashBoard from './Pages/DashBoard/DashBoard';
 import CreateText from './Pages/CreateText/CreateText';
