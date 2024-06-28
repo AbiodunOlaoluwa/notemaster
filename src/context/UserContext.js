@@ -3,6 +3,8 @@ import axios from 'axios';
 
 export const UserContext = createContext();
 
+axios.defaults.withCredentials = true;
+
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 

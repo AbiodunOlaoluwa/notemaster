@@ -34,6 +34,8 @@ const CreateText = () => {
   const savedInactiveTime = useRef(0);
   const shownRecommendations = useRef(new Set());
 
+  axios.defaults.withCredentials = true;
+
   useEffect(() => {
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('keydown', handleKeyDown);

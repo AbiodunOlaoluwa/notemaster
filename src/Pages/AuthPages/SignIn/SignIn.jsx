@@ -13,6 +13,8 @@ import "./SignIn.css";
 import ComponentLoadingSpinner from '../../../Components/ComponentLoadingSpinner/ComponentLoadingSpinner';
 import { UserContext } from '../../../context/UserContext';
 
+axios.defaults.withCredentials = true;
+
 const SignIn = () => {
     axios.defaults.withCredentials = true; //for session cookie handling
 

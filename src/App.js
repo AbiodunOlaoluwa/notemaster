@@ -1,4 +1,5 @@
 import './App.css';
+import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './Pages/LandingPage/LandingPage';
 import DashBoard from './Pages/DashBoard/DashBoard';
@@ -13,6 +14,8 @@ import Layout from './Layout';
 import PrivateRoute from './Components/PrivateRoute';
 import AuthRoute from './Components/AuthRoute';
 import { UserProvider } from './context/UserContext';
+
+axios.defaults.withCredentials = true;
 
 function App() {
   return (

@@ -9,6 +9,8 @@ import BarChart from '../../Components/Charts/BarChart';
 import LineChart from '../../Components/Charts/LineChart';
 import "../../Components/Charts/ChartSetup";
 
+axios.defaults.withCredentials = true;
+
 const DashBoard = () => {
   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(true);

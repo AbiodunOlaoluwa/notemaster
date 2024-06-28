@@ -7,11 +7,15 @@ import { UserContext } from '../../context/UserContext';
 import './TextsPage.css';
 import { trefoil } from 'ldrs';
 
+axios.defaults.withCredentials = true;
+
 const TextsPage = () => {
   const { user } = useContext(UserContext);
   const [texts, setTexts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  trefoil.register();
 
   useEffect(() => {
     if (!user) {

@@ -4,6 +4,8 @@ import axios from 'axios';
 import { trefoil } from 'ldrs';
 import "./Recommendations.css";
 
+axios.defaults.withCredentials = true;
+
 const Recommendations = () => {
 
     const { user } = useContext(UserContext);

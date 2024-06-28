@@ -7,6 +7,8 @@ import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./EditPage.css";
 
+axios.defaults.withCredentials = true;
+
 const DEBOUNCE_DELAY = 5000; // 5 seconds
 const AUTOSAVEINTERVAL = 1000;
 const RECOMMENDATION_INTERVAL = 1000;
