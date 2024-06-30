@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { trefoil } from 'ldrs';
+import { UserContext } from '../context/UserContext';
 
 axios.defaults.withCredentials = true;
 
 const PrivateRoute = ({ element }) => {
     const [loading, setLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
+    const {user} = useContext(UserContext);
 
     trefoil.register();
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/checkAuth`, { withCredentials: true })
-            .then(response => {
-                setAuthenticated(true);
-                setLoading(false);
-            })
-            .catch(error => {
-                setAuthenticated(false);
-                setLoading(false);
-            });
-    }, []);
+        // axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/checkAuth`, { withCredentials: true })
+        //     .then(response => {
+        //         setAuthenticated(true);
+        //         setLoading(false);
+        //     })
+        //     .catch(error => {
+        //         setAuthenticated(false);
+        //         setLoading(false);
+        //     });
+
+        if (user) {
+            setAuthenticated(true);
+            setLoading(false);
+        }
+    }, [user]);
 
     if (loading) {
         return (
