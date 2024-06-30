@@ -1,35 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import { trefoil } from 'ldrs';
 
 axios.defaults.withCredentials = true;
 
-class PrivateRoute extends React.Component {
-    state = {
-        loading: true,
-        authenticated: false,
-    };
+const PrivateRoute = ({ element }) => {
+    const [loading, setLoading] = useState(true);
+    const [authenticated, setAuthenticated] = useState(false);
 
-    componentDidMount() {
+    trefoil.register();
+
+    useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/checkAuth`, { withCredentials: true })
             .then(response => {
-                this.setState({ authenticated: true, loading: false });
+                setAuthenticated(true);
+                setLoading(false);
             })
             .catch(error => {
-                this.setState({ authenticated: false, loading: false });
+                setAuthenticated(false);
+                setLoading(false);
             });
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="loaderContainerFull">
+                <l-trefoil
+                    size="40"
+                    stroke="4"
+                    stroke-length="0.15"
+                    bg-opacity="0.1"
+                    speed="1.4"
+                    color="white"
+                ></l-trefoil>
+            </div>
+        );
     }
 
-    render() {
-        const { loading, authenticated } = this.state;
-        const { element } = this.props;
-
-        if (loading) {
-            return <div>Loading...</div>;
-        }
-
-        return authenticated ? element : <Navigate to="/login" />;
-    }
-}
+    return authenticated ? element : <Navigate to="/login" />;
+};
 
 export default PrivateRoute;
